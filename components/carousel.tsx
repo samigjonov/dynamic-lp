@@ -1,12 +1,26 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { FadeIn } from "./fade-in";
+import * as React from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { FadeIn } from './fade-in';
+import Link from 'next/link';
 
-export function Carousel() {
+type CarouselItem = {
+  id: number;
+  created_at: string;
+  title: string;
+  description: string;
+  cta_text: string;
+  cta_link: string;
+};
+
+type CarouselProps = {
+  items: CarouselItem[];
+};
+
+export function Carousel({ items }: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel();
 
   const scrollPrev = React.useCallback(() => {
@@ -22,19 +36,22 @@ export function Carousel() {
       <div className="relative">
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
-            {[1, 2, 3].map((index) => (
-              <div key={index} className="relative flex-[0_0_100%] min-w-0">
+            {items.map((item) => (
+              <div key={item.id} className="relative min-w-0 flex-[0_0_100%]">
                 <div className="relative h-[600px] w-full bg-muted">
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center space-y-4 max-w-3xl mx-auto px-4">
+                    <div className="mx-auto max-w-3xl space-y-4 px-4 text-center">
                       <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-                        Transform Your Learning Journey
+                        {item.title}
                       </h1>
                       <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                        Discover our comprehensive offline learning programs
-                        designed to help you succeed.
+                        {item.description}
                       </p>
-                      <Button size="lg">Explore Programs</Button>
+                      <Link href={item.cta_link}>
+                        <Button size="lg" className="mt-4">
+                          {item.cta_text}
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </div>
