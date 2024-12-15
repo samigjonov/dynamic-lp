@@ -4,7 +4,6 @@ import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { createClient } from '@/utils/supabase/server';
-import { redirect } from 'next/navigation';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -12,15 +11,13 @@ type LayoutProps = {
 export default async function Layout({ children }: LayoutProps) {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.auth.getUser();
-
-  if (!data || error) {
-    redirect('/login');
-  }
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar email={user?.email} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2">
           <div className="flex items-center gap-2 px-4">
