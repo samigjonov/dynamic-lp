@@ -17,7 +17,7 @@ export default function LoginPage() {
     formData.append('password', password);
     const result = await login(formData);
     if (result.success) {
-      redirect('/');
+      redirect('/dashboard');
     } else {
       setErrorMessage(result.error);
     }

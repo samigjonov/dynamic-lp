@@ -16,11 +16,6 @@ import {
 } from '@/components/ui/sidebar';
 
 const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
   navMain: [
     {
       title: 'Dashboard Management',
@@ -65,7 +60,9 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+type AppSidebarProps = { email?: string } & React.ComponentProps<typeof Sidebar>;
+
+export function AppSidebar({ email, ...props }: AppSidebarProps) {
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -73,7 +70,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
@@ -88,9 +85,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
+      {email && (
+        <SidebarFooter>
+          <NavUser email={email} />
+        </SidebarFooter>
+      )}
     </Sidebar>
   );
 }
