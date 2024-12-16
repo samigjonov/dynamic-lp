@@ -28,8 +28,8 @@ const data = {
           url: '/dashboard/navbar',
         },
         {
-          title: 'Hero',
-          url: '/dashboard/hero',
+          title: 'Carousel',
+          url: '/dashboard/carousel',
         },
         {
           title: 'About Us',
