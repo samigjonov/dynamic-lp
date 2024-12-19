@@ -11,6 +11,7 @@ import { createClient } from '@/utils/supabase/server';
 export default async function Page() {
   const supabase = await createClient();
   const { data: carouselItems } = await supabase.from('carousel_items').select();
+  const { data: aboutUs } = await supabase.from('about_us').select().single();
   return (
     <div className="min-h-screen bg-background font-sans antialiased">
       <Navigation />
@@ -21,7 +22,7 @@ export default async function Page() {
           </section>
         )}
 
-        <AboutUs />
+        <AboutUs aboutUs={aboutUs} />
         <Features />
         <Testimonials />
         <Faq />
