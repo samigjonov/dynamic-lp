@@ -63,7 +63,11 @@ export default function CarouselDataTable({ items }: CarouselDataTableProps) {
                 <TableCell>{item.title}</TableCell>
                 <TableCell>{item.description.slice(0, 50)}...</TableCell>
                 <TableCell>
-                  <Link href={item.cta_link} className="text-blue-500 underline hover:no-underline">
+                  <Link
+                    href={item.cta_link}
+                    className="text-blue-500 underline hover:no-underline"
+                    target="_blank"
+                  >
                     {item.cta_text}
                   </Link>
                 </TableCell>

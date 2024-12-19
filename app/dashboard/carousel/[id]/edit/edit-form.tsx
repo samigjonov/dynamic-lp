@@ -7,13 +7,13 @@ import { toast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 
 type EditFormProps = {
-  defaultValues: CarouselItem;
+  carouselItem: CarouselItem;
 };
 
-export default function EditForm({ defaultValues }: EditFormProps) {
+export default function EditForm({ carouselItem }: EditFormProps) {
   const router = useRouter();
   const handleUpdate = async (values: CarouselFormValues) => {
-    const result = await updateCarouselItem(defaultValues.id, values);
+    const result = await updateCarouselItem(carouselItem.id, values);
     if (result.success) {
       toast({
         title: 'Carousel item updated',
@@ -29,5 +29,5 @@ export default function EditForm({ defaultValues }: EditFormProps) {
     }
   };
 
-  return <CarouselForm onSubmit={handleUpdate} defaultValues={defaultValues} isEdit />;
+  return <CarouselForm onSubmit={handleUpdate} defaultValues={carouselItem} isEdit />;
 }
